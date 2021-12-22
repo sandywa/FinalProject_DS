@@ -31,8 +31,7 @@ d <- read.csv("reviews_shopee.csv")
 
 Poin 2. Sebelum mengolah data, tahapan yang perlu dilakukan adalah data preprocessing dengan membersihkan data data sehingga dapat dengan mudah dan lebih akurat ketika akan diolah. Mulai dari penghilangan URL, "\n", koma, RT, titik dua, titk koma, titk tiga, amp, dan symbol
 
-```{r preprocessing dataset}
-
+```{r}
 komentar <- d$ulasan
 reviewC <- Corpus(VectorSource(komentar))
 removeURL <- function(x) gsub("http[^[:space:]]*", "", x)
@@ -61,5 +60,23 @@ reviewclean <- tm_map(reviewclean, removePunctuation)
 reviewclean <- tm_map(reviewclean, tolower)
 
 dataframe<-data.frame(text=unlist(sapply(reviewclean, `[`)), stringsAsFactors=F)
-view(dataframe)
+dataframe
 write.csv(dataframe,file = "dataPreProcessing.csv")
+```
+
+poin 3.Menggunakan library  e1071 untuk klasifikasi naive bayes, kemudian library caret untuk klasifikasi data serta syuzhet untuk membaca funggsi get_nrc, kemudian ditampilkan dalam bentuk barplot
+
+```{r}
+d<-read.csv("dataPreProcessing.csv",stringsAsFactors = FALSE) 
+#merubah text menjadi char 
+review <-as.character(d$text) 
+
+s <- get_nrc_sentiment(review, cl = NULL, language = "english", lowercase = TRUE)
+
+#klasifikasi data
+review_combine<-cbind(d$text,s)
+par(mar=rep(3,4))
+a<- barplot(colSums(s),col=c('grey'), xlab ='emotion', ylab='count',main='Sentiment Analysis')
+barplt <- a
+```
+
