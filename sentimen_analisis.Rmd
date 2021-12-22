@@ -1,0 +1,31 @@
+---
+title: "ProjectDS"
+author: "Sandy Wahyu Agusta (123190145) & Busroni Ahmad Safrizal (123190147)"
+date: "12/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Poin 1. Import Library yang akan digunakan terlebih dahulu kemudian set data frame diambil dari dataset yang digunakan dalam kasus ini menggunakan reviews_shopee.csv pada folder yang sama.
+
+```{r rlib}
+library(tm)
+library(wordcloud2)
+library(vroom)
+library(here)
+library(RTextTools)
+library(dplyr)
+library(wordcloud)
+library(shiny)
+library(ggplot2)
+library(plotly)
+library(syuzhet)
+library(e1071) 
+library(caret) 
+
+d <- read.csv("reviews_shopee.csv")
+```
+
